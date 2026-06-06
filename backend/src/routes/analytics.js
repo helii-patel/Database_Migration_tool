@@ -1,0 +1,10 @@
+const express = require('express');
+const router = express.Router();
+const { authenticate } = require('../middleware/auth');
+const { getOverview, getDbGrowth } = require('../controllers/analyticsController');
+
+router.use(authenticate);
+router.get('/overview', getOverview);
+router.get('/growth', getDbGrowth);
+
+module.exports = router;
