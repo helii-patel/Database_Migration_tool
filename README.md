@@ -195,12 +195,6 @@ Project/
 
 ---
 
-## 🔑 Default Credentials
-
-| Role | Email | Password |
-|------|-------|----------|
-| Admin | `admin@demo.com` | `Admin@123` |
-| Engineer | `engineer@demo.com` | `Eng@123` |
 
 ---
 
