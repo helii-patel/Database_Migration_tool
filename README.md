@@ -160,7 +160,6 @@ npm run dev
 
 ---
 
-=======
 ## 📡 API Endpoints
 
 | Method | Endpoint | Description |
@@ -190,8 +189,6 @@ npm run dev
 
 ### 5. Data Validation Dashboard
 ![Validation](./Screenshots/Validation.png)
-
-*(Images are stored in the `/Screenshots` directory)*
 
 ---
 
