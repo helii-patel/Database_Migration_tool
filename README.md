@@ -7,8 +7,7 @@
   
   <br />
   
-  <h1>🚀 DBMigrate Pro</h1>
-  <h3>Enterprise Database Migration & Query Translation Platform</h3>
+  <h1>🚀 Enterprise Database Migration & Query Translation Platform</h1>
 </div>
 
 <br />
@@ -125,7 +124,6 @@ DBMigrate Pro/
 │   │   └── App.jsx           # Main routing
 │   ├── vite.config.js
 │   └── package.json
-└── Screenshots/              # UI Demonstration images
 ```
 
 ---
@@ -159,27 +157,6 @@ npm install
 npm run dev
 ```
 
----
-
-## 🔐 Environment Variables (.env)
-
-The `backend/.env` requires the following critical variables:
-
-```env
-# System Database (MySQL/PG - stores app data)
-SYSTEM_DB_HOST=localhost
-SYSTEM_DB_PORT=3306
-SYSTEM_DB_NAME=dbmigrate_system
-SYSTEM_DB_USER=root
-SYSTEM_DB_PASSWORD=yourpassword
-
-# Security
-JWT_SECRET=super_secret_jwt_string
-ENCRYPTION_KEY=32_character_aes_encryption_key_
-
-# Groq AI Integration
-GROQ_API_KEY=gsk_your_groq_api_key_here
-```
 
 ---
 
@@ -248,14 +225,6 @@ GROQ_API_KEY=gsk_your_groq_api_key_here
 - Mastered bridging modern **LLM APIs (Groq/Llama)** with traditional full-stack web applications.
 - Implemented robust **security architectures**, focusing on encryption at rest and role-based access.
 
----
-
-## 📄 Resume Project Description
-
-**DBMigrate Pro | Full-Stack Database Migration & AI Query Translation Engine**
-* Architected an enterprise ETL platform utilizing React, Node.js, and Express to orchestrate secure, zero-downtime database migrations between MySQL and PostgreSQL.
-* Engineered a batched, asynchronous migration pipeline capable of streaming large datasets alongside real-time Socket.io progress tracking and post-migration schema validation.
-* Integrated the Groq SDK and Llama-3 LLM to develop a dynamic, low-latency AI Query Translator bridging relational SQL syntaxes with NoSQL graph and document querying structures.
 
 ---
 
