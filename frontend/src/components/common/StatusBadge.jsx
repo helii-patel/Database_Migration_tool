@@ -22,9 +22,14 @@ const STATUS_MAP = {
 };
 
 const StatusBadge = ({ status, customLabel }) => {
-  const map = STATUS_MAP[status?.toLowerCase()] || { label: status || 'Unknown', cls: 'badge-neutral' };
+  const map = STATUS_MAP[status?.toLowerCase()] || {
+    label: status || 'Unknown',
+    cls: 'badge-neutral',
+  };
 
-  const hasDot = ['connected', 'running', 'completed', 'failed', 'passed'].includes(status?.toLowerCase());
+  const hasDot = ['connected', 'running', 'completed', 'failed', 'passed'].includes(
+    status?.toLowerCase()
+  );
   const dotColor = {
     connected: 'bg-emerald-500',
     running: 'bg-blue-500 animate-pulse',

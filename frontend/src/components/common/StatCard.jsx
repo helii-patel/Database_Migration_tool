@@ -6,7 +6,17 @@ const TREND_COLORS = {
   neutral: 'text-slate-400',
 };
 
-const StatCard = ({ title, value, subtitle, icon, trend, trendValue, color = 'primary', loading, id }) => {
+const StatCard = ({
+  title,
+  value,
+  subtitle,
+  icon,
+  trend,
+  trendValue,
+  color = 'primary',
+  loading,
+  id,
+}) => {
   const colorMap = {
     primary: 'from-primary-500/20 to-primary-600/5 border-primary-500/20',
     emerald: 'from-emerald-500/20 to-emerald-600/5 border-emerald-500/20',
@@ -48,7 +58,9 @@ const StatCard = ({ title, value, subtitle, icon, trend, trendValue, color = 'pr
 
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">{title}</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+            {title}
+          </p>
           <p className="text-3xl font-bold text-slate-800 dark:text-white mb-1 tabular-nums">
             {value ?? '—'}
           </p>
@@ -62,8 +74,10 @@ const StatCard = ({ title, value, subtitle, icon, trend, trendValue, color = 'pr
           )}
         </div>
         {icon && (
-          <div className={`flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center text-xl ${iconBgMap[color]}
-            group-hover:scale-110 transition-transform duration-300`}>
+          <div
+            className={`flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center text-xl ${iconBgMap[color]}
+            group-hover:scale-110 transition-transform duration-300`}
+          >
             {icon}
           </div>
         )}

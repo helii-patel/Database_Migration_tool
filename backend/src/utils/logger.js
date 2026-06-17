@@ -30,25 +30,16 @@ const errorRotateTransport = new winston.transports.DailyRotateFile({
 
 const logger = winston.createLogger({
   level: LOG_LEVEL,
-  format: combine(
-    timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-    errors({ stack: true }),
-    logFormat
-  ),
-  transports: [
-    fileRotateTransport,
-    errorRotateTransport,
-  ],
+  format: combine(timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), errors({ stack: true }), logFormat),
+  transports: [fileRotateTransport, errorRotateTransport],
 });
 
 if (process.env.NODE_ENV !== 'production') {
-  logger.add(new winston.transports.Console({
-    format: combine(
-      colorize(),
-      timestamp({ format: 'HH:mm:ss' }),
-      logFormat
-    ),
-  }));
+  logger.add(
+    new winston.transports.Console({
+      format: combine(colorize(), timestamp({ format: 'HH:mm:ss' }), logFormat),
+    })
+  );
 }
 
 module.exports = logger;

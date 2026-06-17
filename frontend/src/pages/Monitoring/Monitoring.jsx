@@ -2,7 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
 import { getConnections } from '../../api/connections';
 import { getMetrics, getMetricsHistory } from '../../api/monitoring';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
 import StatCard from '../../components/common/StatCard';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns';
@@ -23,7 +31,10 @@ const MetricCard = ({ label, value, unit, color, icon, max }) => {
       </div>
       {pct !== null && (
         <div className="progress-bar h-2">
-          <div className="h-2 rounded-full transition-all duration-700" style={{ width: `${pct}%`, background: color }} />
+          <div
+            className="h-2 rounded-full transition-all duration-700"
+            style={{ width: `${pct}%`, background: color }}
+          />
         </div>
       )}
     </div>
@@ -36,7 +47,9 @@ const CustomTooltip = ({ active, payload, label }) => {
       <div className="card px-3 py-2 text-xs">
         <p className="text-slate-400 mb-1">{label}</p>
         {payload.map((p, i) => (
-          <p key={i} style={{ color: p.color }}>{p.name}: <strong>{typeof p.value === 'number' ? p.value.toFixed(1) : p.value}</strong></p>
+          <p key={i} style={{ color: p.color }}>
+            {p.name}: <strong>{typeof p.value === 'number' ? p.value.toFixed(1) : p.value}</strong>
+          </p>
         ))}
       </div>
     );
@@ -55,11 +68,13 @@ const Monitoring = () => {
   const socketRef = useRef(null);
 
   useEffect(() => {
-    getConnections().then((res) => {
-      const conns = res.data.data;
-      setConnections(conns);
-      if (conns.length > 0) setSelectedConn(conns[0].id);
-    }).catch(() => {});
+    getConnections()
+      .then((res) => {
+        const conns = res.data.data;
+        setConnections(conns);
+        if (conns.length > 0) setSelectedConn(conns[0].id);
+      })
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -74,7 +89,10 @@ const Monitoring = () => {
     socket.on('metrics', (data) => {
       if (data.connectionId === selectedConn) {
         setMetrics(data);
-        setHistory((prev) => [...prev.slice(-49), { ...data, time: format(new Date(), 'HH:mm:ss') }]);
+        setHistory((prev) => [
+          ...prev.slice(-49),
+          { ...data, time: format(new Date(), 'HH:mm:ss') },
+        ]);
       }
     });
 
@@ -101,7 +119,10 @@ const Monitoring = () => {
         setMetrics(m);
         setHistory((prev) => [...prev.slice(-49), { ...m, time: format(new Date(), 'HH:mm:ss') }]);
       }
-    } catch { } finally { setLoadingMetrics(false); }
+    } catch {
+    } finally {
+      setLoadingMetrics(false);
+    }
   };
 
   const fetchHistory = async () => {
@@ -113,7 +134,7 @@ const Monitoring = () => {
         time: format(new Date(s.captured_at), 'HH:mm'),
       }));
       setHistory(h);
-    } catch { }
+    } catch {}
   };
 
   const connName = connections.find((c) => c.id === selectedConn)?.name || 'Unknown';
@@ -123,8 +144,12 @@ const Monitoring = () => {
       {/* Header */}
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800 dark:text-white">Performance Monitoring</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Real-time database metrics</p>
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-white">
+            Performance Monitoring
+          </h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+            Real-time database metrics
+          </p>
         </div>
         <div className="flex items-center gap-3">
           <select
@@ -133,7 +158,11 @@ const Monitoring = () => {
             value={selectedConn}
             onChange={(e) => setSelectedConn(e.target.value)}
           >
-            {connections.map((c) => <option key={c.id} value={c.id}>{c.name} ({c.db_type})</option>)}
+            {connections.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name} ({c.db_type})
+              </option>
+            ))}
           </select>
           <button onClick={fetchMetrics} disabled={loadingMetrics} className="btn-secondary">
             {loadingMetrics ? '⟳' : '🔄'} Refresh
@@ -157,19 +186,61 @@ const Monitoring = () => {
         <>
           {/* Metric Cards */}
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-            <MetricCard label="CPU Usage" value={metrics?.cpu_usage} unit="%" color="#6172f5" icon="💻" max={100} />
-            <MetricCard label="Memory" value={metrics?.memory_usage} unit="%" color="#06b6d4" icon="🧠" max={100} />
-            <MetricCard label="Active Connections" value={metrics?.active_connections} unit="" color="#10b981" icon="🔗" max={metrics?.max_connections} />
-            <MetricCard label="QPS" value={metrics?.queries_per_second} unit="q/s" color="#f59e0b" icon="⚡" />
-            <MetricCard label="Slow Queries" value={metrics?.slow_queries} unit="" color="#f43f5e" icon="🐢" />
-            <MetricCard label="Cache Hit" value={metrics?.buffer_hit_ratio} unit="%" color="#8b5cf6" icon="⚡" max={100} />
+            <MetricCard
+              label="CPU Usage"
+              value={metrics?.cpu_usage}
+              unit="%"
+              color="#6172f5"
+              icon="💻"
+              max={100}
+            />
+            <MetricCard
+              label="Memory"
+              value={metrics?.memory_usage}
+              unit="%"
+              color="#06b6d4"
+              icon="🧠"
+              max={100}
+            />
+            <MetricCard
+              label="Active Connections"
+              value={metrics?.active_connections}
+              unit=""
+              color="#10b981"
+              icon="🔗"
+              max={metrics?.max_connections}
+            />
+            <MetricCard
+              label="QPS"
+              value={metrics?.queries_per_second}
+              unit="q/s"
+              color="#f59e0b"
+              icon="⚡"
+            />
+            <MetricCard
+              label="Slow Queries"
+              value={metrics?.slow_queries}
+              unit=""
+              color="#f43f5e"
+              icon="🐢"
+            />
+            <MetricCard
+              label="Cache Hit"
+              value={metrics?.buffer_hit_ratio}
+              unit="%"
+              color="#8b5cf6"
+              icon="⚡"
+              max={100}
+            />
           </div>
 
           {/* Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* CPU/Memory Chart */}
             <div className="card p-5">
-              <p className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-4">CPU & Memory Usage (%)</p>
+              <p className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-4">
+                CPU & Memory Usage (%)
+              </p>
               <ResponsiveContainer width="100%" height={200}>
                 <AreaChart data={history} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
                   <defs>
@@ -183,18 +254,46 @@ const Monitoring = () => {
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.1)" />
-                  <XAxis dataKey="time" tick={{ fontSize: 9, fill: '#94a3b8' }} tickLine={false} interval="preserveStartEnd" />
-                  <YAxis domain={[0, 100]} tick={{ fontSize: 9, fill: '#94a3b8' }} tickLine={false} axisLine={false} />
+                  <XAxis
+                    dataKey="time"
+                    tick={{ fontSize: 9, fill: '#94a3b8' }}
+                    tickLine={false}
+                    interval="preserveStartEnd"
+                  />
+                  <YAxis
+                    domain={[0, 100]}
+                    tick={{ fontSize: 9, fill: '#94a3b8' }}
+                    tickLine={false}
+                    axisLine={false}
+                  />
                   <Tooltip content={<CustomTooltip />} />
-                  <Area type="monotone" dataKey="cpu_usage" name="CPU%" stroke="#6172f5" fill="url(#gradCPU)" strokeWidth={2} dot={false} />
-                  <Area type="monotone" dataKey="memory_usage" name="Memory%" stroke="#06b6d4" fill="url(#gradMem)" strokeWidth={2} dot={false} />
+                  <Area
+                    type="monotone"
+                    dataKey="cpu_usage"
+                    name="CPU%"
+                    stroke="#6172f5"
+                    fill="url(#gradCPU)"
+                    strokeWidth={2}
+                    dot={false}
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="memory_usage"
+                    name="Memory%"
+                    stroke="#06b6d4"
+                    fill="url(#gradMem)"
+                    strokeWidth={2}
+                    dot={false}
+                  />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
 
             {/* Connections + QPS Chart */}
             <div className="card p-5">
-              <p className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-4">Connections & QPS</p>
+              <p className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-4">
+                Connections & QPS
+              </p>
               <ResponsiveContainer width="100%" height={200}>
                 <AreaChart data={history} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
                   <defs>
@@ -208,11 +307,36 @@ const Monitoring = () => {
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.1)" />
-                  <XAxis dataKey="time" tick={{ fontSize: 9, fill: '#94a3b8' }} tickLine={false} interval="preserveStartEnd" />
-                  <YAxis tick={{ fontSize: 9, fill: '#94a3b8' }} tickLine={false} axisLine={false} />
+                  <XAxis
+                    dataKey="time"
+                    tick={{ fontSize: 9, fill: '#94a3b8' }}
+                    tickLine={false}
+                    interval="preserveStartEnd"
+                  />
+                  <YAxis
+                    tick={{ fontSize: 9, fill: '#94a3b8' }}
+                    tickLine={false}
+                    axisLine={false}
+                  />
                   <Tooltip content={<CustomTooltip />} />
-                  <Area type="monotone" dataKey="active_connections" name="Connections" stroke="#10b981" fill="url(#gradConn)" strokeWidth={2} dot={false} />
-                  <Area type="monotone" dataKey="queries_per_second" name="QPS" stroke="#f59e0b" fill="url(#gradQPS)" strokeWidth={2} dot={false} />
+                  <Area
+                    type="monotone"
+                    dataKey="active_connections"
+                    name="Connections"
+                    stroke="#10b981"
+                    fill="url(#gradConn)"
+                    strokeWidth={2}
+                    dot={false}
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="queries_per_second"
+                    name="QPS"
+                    stroke="#f59e0b"
+                    fill="url(#gradQPS)"
+                    strokeWidth={2}
+                    dot={false}
+                  />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
@@ -221,10 +345,17 @@ const Monitoring = () => {
           {/* Details */}
           {metrics && (
             <div className="card p-5">
-              <p className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-4">Database Details — {connName}</p>
+              <p className="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-4">
+                Database Details — {connName}
+              </p>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {[
-                  { label: 'Uptime', value: metrics.uptime_seconds ? `${Math.floor(metrics.uptime_seconds / 3600)}h` : 'N/A' },
+                  {
+                    label: 'Uptime',
+                    value: metrics.uptime_seconds
+                      ? `${Math.floor(metrics.uptime_seconds / 3600)}h`
+                      : 'N/A',
+                  },
                   { label: 'Max Connections', value: metrics.max_connections },
                   { label: 'Avg Query Time', value: `${metrics.avg_query_time_ms?.toFixed(1)} ms` },
                   { label: 'Cache Hit Ratio', value: `${metrics.buffer_hit_ratio?.toFixed(1)}%` },
@@ -235,7 +366,9 @@ const Monitoring = () => {
                 ].map((d) => (
                   <div key={d.label} className="bg-slate-50 dark:bg-surface-700 rounded-xl p-3">
                     <p className="text-xs text-slate-400 mb-1">{d.label}</p>
-                    <p className="text-sm font-semibold text-slate-800 dark:text-white">{d.value ?? '—'}</p>
+                    <p className="text-sm font-semibold text-slate-800 dark:text-white">
+                      {d.value ?? '—'}
+                    </p>
                   </div>
                 ))}
               </div>

@@ -9,6 +9,56 @@
             "date": 1780765877187,
             "name": "logs\\app-2026-06-06.log",
             "hash": "c3b6851d6a0470e8458b9d56cbc16e424e3df8279b5bf31e5ba28377885a3b76"
+        },
+        {
+            "date": 1780772196768,
+            "name": "logs\\app-2026-06-07.log",
+            "hash": "f9eac1ffb501cd109f15893216bd3488f5930e7b7c21815e7e27874506cccdd2"
+        },
+        {
+            "date": 1780996029382,
+            "name": "logs\\app-2026-06-09.log",
+            "hash": "a9da69356cfc9968ebc1632b13aa49c849d3909b6d16f02b1d2ea3eeb099d324"
+        },
+        {
+            "date": 1781029813256,
+            "name": "logs\\app-2026-06-10.log",
+            "hash": "49fe279cb22d3e3cfcbf2b0c14a92978998711eec50d1ea6e2ab253bbe01f3bd"
+        },
+        {
+            "date": 1781191691985,
+            "name": "logs\\app-2026-06-11.log",
+            "hash": "02b9ad069c14b58c0a7546a1537103f97802cb6f539095f2af8ea633e4a80907"
+        },
+        {
+            "date": 1781202601320,
+            "name": "logs\\app-2026-06-12.log",
+            "hash": "9bdd50e7ed7263d2876d8399510d4286e9ee3ce2a0937d762af79d3850c941a8"
+        },
+        {
+            "date": 1781369083091,
+            "name": "logs\\app-2026-06-13.log",
+            "hash": "89138e05ae0024b35c875b61fbd6bf2400229aeeeedd478452c721bbe9beff14"
+        },
+        {
+            "date": 1781375428370,
+            "name": "logs\\app-2026-06-14.log",
+            "hash": "4432a6783846082bfb8a4be754d468a5565b1589ad609d43241837f2f6660192"
+        },
+        {
+            "date": 1781461822010,
+            "name": "logs\\app-2026-06-15.log",
+            "hash": "f0bb33a28e888371c87fc417f0663a0e295f37a76d2bd5c09b5beec9522421a9"
+        },
+        {
+            "date": 1781549481005,
+            "name": "logs\\app-2026-06-16.log",
+            "hash": "2c2877b487ec8663cd2a18d7dd1c9c8f156417f62b905f9db61084bfcceb8c20"
+        },
+        {
+            "date": 1781690797922,
+            "name": "logs\\app-2026-06-17.log",
+            "hash": "024430049ce21e07826f0ae82b707b06ec16b3f970a4f21c2e58f8222b0fbba4"
         }
     ],
     "hashType": "sha256"

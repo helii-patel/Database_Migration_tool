@@ -8,6 +8,7 @@ const navItems = [
   { path: '/migrations', label: 'Migrations', icon: '⇄' },
   { path: '/monitoring', label: 'Monitoring', icon: '📊' },
   { path: '/validation', label: 'Validation', icon: '✓' },
+  { path: '/query-translator', label: 'Translator', icon: '⚗' },
   { path: '/logs', label: 'Audit Logs', icon: '📋' },
   { path: '/settings', label: 'Settings', icon: '⚙' },
 ];
@@ -28,7 +29,9 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
         ${collapsed ? 'w-[72px]' : 'w-[260px]'}`}
     >
       {/* Logo */}
-      <div className={`flex items-center gap-3 px-4 py-5 border-b border-slate-700/50 ${collapsed ? 'justify-center' : ''}`}>
+      <div
+        className={`flex items-center gap-3 px-4 py-5 border-b border-slate-700/50 ${collapsed ? 'justify-center' : ''}`}
+      >
         <div className="flex-shrink-0 w-9 h-9 rounded-xl bg-gradient-primary flex items-center justify-center shadow-glow-primary">
           <span className="text-white font-bold text-sm">DB</span>
         </div>
@@ -64,10 +67,11 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
             to={item.path}
             className={({ isActive }) =>
               `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer
-               ${isActive
-                ? 'bg-primary-600/20 text-primary-400 border border-primary-500/30'
-                : 'text-slate-400 hover:bg-surface-800 hover:text-slate-200'
-              }
+               ${
+                 isActive
+                   ? 'bg-primary-600/20 text-primary-400 border border-primary-500/30'
+                   : 'text-slate-400 hover:bg-surface-800 hover:text-slate-200'
+               }
               ${collapsed ? 'justify-center' : ''}`
             }
             title={collapsed ? item.label : undefined}
@@ -91,7 +95,11 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
               <div className="text-white text-sm font-medium truncate">{user?.username}</div>
               <div className="text-slate-400 text-xs capitalize">{user?.role}</div>
             </div>
-            <button onClick={handleLogout} className="text-slate-400 hover:text-rose-400 transition-colors text-lg" title="Logout">
+            <button
+              onClick={handleLogout}
+              className="text-slate-400 hover:text-rose-400 transition-colors text-lg"
+              title="Logout"
+            >
               ⎋
             </button>
           </div>

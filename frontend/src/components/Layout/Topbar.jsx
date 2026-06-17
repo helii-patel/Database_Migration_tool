@@ -72,7 +72,12 @@ const Topbar = ({ collapsed }) => {
       <div>
         <h1 className="text-lg font-semibold text-slate-800 dark:text-white">{pageTitle}</h1>
         <p className="text-xs text-slate-400 hidden sm:block">
-          {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+          {new Date().toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}
         </p>
       </div>
 
@@ -108,29 +113,53 @@ const Topbar = ({ collapsed }) => {
           {notifOpen && (
             <div className="absolute right-0 top-12 w-80 card shadow-xl z-50 animate-fade-in max-h-96 flex flex-col">
               <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-700">
-                <span className="font-semibold text-sm text-slate-800 dark:text-white">Notifications</span>
+                <span className="font-semibold text-sm text-slate-800 dark:text-white">
+                  Notifications
+                </span>
                 {unreadCount > 0 && (
-                  <button onClick={handleMarkAllRead} className="text-xs text-primary-500 hover:underline">
+                  <button
+                    onClick={handleMarkAllRead}
+                    className="text-xs text-primary-500 hover:underline"
+                  >
                     Mark all read
                   </button>
                 )}
               </div>
               <div className="overflow-y-auto flex-1">
                 {notifications.length === 0 ? (
-                  <div className="px-4 py-8 text-center text-slate-400 text-sm">No notifications</div>
+                  <div className="px-4 py-8 text-center text-slate-400 text-sm">
+                    No notifications
+                  </div>
                 ) : (
                   notifications.slice(0, 10).map((n) => (
-                    <div key={n.id} className={`px-4 py-3 border-b border-slate-100 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-surface-700 transition-colors ${!n.is_read ? 'bg-primary-50/50 dark:bg-primary-900/10' : ''}`}>
+                    <div
+                      key={n.id}
+                      className={`px-4 py-3 border-b border-slate-100 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-surface-700 transition-colors ${!n.is_read ? 'bg-primary-50/50 dark:bg-primary-900/10' : ''}`}
+                    >
                       <div className="flex items-start gap-2">
                         <span className={`text-base ${SEVERITY_COLORS[n.severity]}`}>
-                          {n.severity === 'success' ? '✅' : n.severity === 'error' ? '❌' : n.severity === 'warning' ? '⚠️' : 'ℹ️'}
+                          {n.severity === 'success'
+                            ? '✅'
+                            : n.severity === 'error'
+                              ? '❌'
+                              : n.severity === 'warning'
+                                ? '⚠️'
+                                : 'ℹ️'}
                         </span>
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs font-semibold text-slate-800 dark:text-white truncate">{n.title}</p>
-                          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">{n.message}</p>
-                          <p className="text-[10px] text-slate-400 mt-1">{formatDistanceToNow(new Date(n.created_at), { addSuffix: true })}</p>
+                          <p className="text-xs font-semibold text-slate-800 dark:text-white truncate">
+                            {n.title}
+                          </p>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">
+                            {n.message}
+                          </p>
+                          <p className="text-[10px] text-slate-400 mt-1">
+                            {formatDistanceToNow(new Date(n.created_at), { addSuffix: true })}
+                          </p>
                         </div>
-                        {!n.is_read && <span className="w-2 h-2 bg-primary-500 rounded-full flex-shrink-0 mt-1" />}
+                        {!n.is_read && (
+                          <span className="w-2 h-2 bg-primary-500 rounded-full flex-shrink-0 mt-1" />
+                        )}
                       </div>
                     </div>
                   ))
@@ -143,10 +172,14 @@ const Topbar = ({ collapsed }) => {
         {/* User avatar */}
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-surface-800">
           <div className="w-7 h-7 rounded-full bg-primary-600 flex items-center justify-center">
-            <span className="text-white text-xs font-bold">{user?.username?.charAt(0).toUpperCase()}</span>
+            <span className="text-white text-xs font-bold">
+              {user?.username?.charAt(0).toUpperCase()}
+            </span>
           </div>
           <div className="hidden sm:block">
-            <p className="text-sm font-medium text-slate-700 dark:text-slate-200 leading-none">{user?.username}</p>
+            <p className="text-sm font-medium text-slate-700 dark:text-slate-200 leading-none">
+              {user?.username}
+            </p>
             <p className="text-[10px] text-slate-400 capitalize">{user?.role}</p>
           </div>
         </div>

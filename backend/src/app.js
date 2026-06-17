@@ -21,6 +21,7 @@ const monitoringRoutes = require('./routes/monitoring');
 const analyticsRoutes = require('./routes/analytics');
 const logsRoutes = require('./routes/logs');
 const notificationRoutes = require('./routes/notifications');
+const queryRoutes = require('./routes/query');
 
 const app = express();
 const server = http.createServer(app);
@@ -36,11 +37,13 @@ const io = new Server(server, {
 
 // Middleware
 app.use(helmet({ contentSecurityPolicy: false }));
-app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-}));
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  })
+);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('combined', { stream: { write: (msg) => logger.info(msg.trim()) } }));
@@ -54,12 +57,24 @@ const apiLimiter = rateLimit({
 app.use('/api/', apiLimiter);
 
 // Health check
-app.get('/health', (req, res) => res.json({
-  status: 'ok',
-  timestamp: new Date().toISOString(),
-  uptime: process.uptime(),
-  version: '1.0.0',
-}));
+app.get('/', (req, res) =>
+  res.json({
+    success: true,
+    message: 'DBMigrate Pro API is running',
+    frontend: process.env.CORS_ORIGIN || 'http://localhost:5173',
+    health: '/health',
+    api: '/api',
+  })
+);
+
+app.get('/health', (req, res) =>
+  res.json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    version: '1.0.0',
+  })
+);
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -69,6 +84,7 @@ app.use('/api/monitoring', monitoringRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/logs', logsRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/query', queryRoutes);
 
 // 404 and error handlers
 app.use(notFound);

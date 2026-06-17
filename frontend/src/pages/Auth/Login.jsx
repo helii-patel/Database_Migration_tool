@@ -37,11 +37,13 @@ const Login = () => {
             <span className="text-white font-bold text-xl">DBMigrate Pro</span>
           </div>
           <h2 className="text-4xl font-bold text-white mb-4 leading-tight">
-            Enterprise Database<br />
+            Enterprise Database
+            <br />
             <span className="text-gradient">Migration Platform</span>
           </h2>
           <p className="text-slate-400 text-lg leading-relaxed">
-            Migrate, monitor, and manage your databases with confidence. Built for database engineers and cloud teams.
+            Migrate, monitor, and manage your databases with confidence. Built for database
+            engineers and cloud teams.
           </p>
           <div className="mt-12 grid grid-cols-2 gap-4">
             {[
@@ -50,7 +52,10 @@ const Login = () => {
               { icon: '✅', label: 'Data Validation', desc: 'Integrity verification' },
               { icon: '📊', label: 'Analytics', desc: 'Insights & reporting' },
             ].map((f) => (
-              <div key={f.label} className="p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+              <div
+                key={f.label}
+                className="p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm"
+              >
                 <div className="text-2xl mb-2">{f.icon}</div>
                 <div className="text-white font-medium text-sm">{f.label}</div>
                 <div className="text-slate-400 text-xs">{f.desc}</div>
@@ -71,10 +76,14 @@ const Login = () => {
               <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center">
                 <span className="text-white font-bold">DB</span>
               </div>
-              <span className="font-bold text-xl text-slate-800 dark:text-white">DBMigrate Pro</span>
+              <span className="font-bold text-xl text-slate-800 dark:text-white">
+                DBMigrate Pro
+              </span>
             </div>
             <h1 className="text-3xl font-bold text-slate-800 dark:text-white mb-2">Sign in</h1>
-            <p className="text-slate-500 dark:text-slate-400">Access your database administration portal</p>
+            <p className="text-slate-500 dark:text-slate-400">
+              Access your database administration portal
+            </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -114,18 +123,27 @@ const Login = () => {
                   <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   Signing in...
                 </span>
-              ) : 'Sign in →'}
+              ) : (
+                'Sign in →'
+              )}
             </button>
 
             {/* Demo credentials hint */}
             <div className="p-3 rounded-xl bg-primary-50 dark:bg-primary-900/20 border border-primary-100 dark:border-primary-800/30">
-              <p className="text-xs text-primary-700 dark:text-primary-400 font-medium mb-1">Demo Credentials</p>
-              <p className="text-xs text-primary-600 dark:text-primary-500 font-mono">admin@demo.com / Admin@123</p>
+              <p className="text-xs text-primary-700 dark:text-primary-400 font-medium mb-1">
+                Demo Credentials
+              </p>
+              <p className="text-xs text-primary-600 dark:text-primary-500 font-mono">
+                admin@demo.com / Admin@123
+              </p>
             </div>
 
             <p className="text-center text-sm text-slate-500">
               Don't have an account?{' '}
-              <Link to="/register" className="text-primary-600 dark:text-primary-400 hover:underline font-medium">
+              <Link
+                to="/register"
+                className="text-primary-600 dark:text-primary-400 hover:underline font-medium"
+              >
                 Create account
               </Link>
             </p>

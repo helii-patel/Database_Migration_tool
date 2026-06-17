@@ -1,277 +1,271 @@
-# DBMigrate Pro
+<div align="center">
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="NodeJS" />
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  
+  <br />
+  
+  <h1>🚀 DBMigrate Pro</h1>
+  <h3>Enterprise Database Migration & Query Translation Platform</h3>
+</div>
 
-> Enterprise-grade Database Migration & Performance Monitoring System
-
-A full-stack web application for database administrators and data engineers to migrate data between MySQL and PostgreSQL databases, monitor real-time performance metrics, validate migrated records, and analyze database health through an interactive dashboard.
-
-![Tech Stack](https://img.shields.io/badge/React-18-blue) ![Node.js](https://img.shields.io/badge/Node.js-18+-green) ![MySQL](https://img.shields.io/badge/MySQL-8+-orange) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14+-blue) ![License](https://img.shields.io/badge/License-MIT-yellow)
-
----
-
-## ✨ Features
-
-| Feature | Description |
-|---------|-------------|
-| 🔐 **JWT Authentication** | Secure login with role-based access (Admin, Engineer, Viewer) |
-| 🔌 **Connection Manager** | Add, test, and manage MySQL/PostgreSQL database connections with AES-256 encrypted credentials |
-| ⇄ **Migration Engine** | Full and incremental table migrations with batched processing and real-time progress |
-| 📊 **Performance Monitoring** | Live metrics (CPU, memory, connections, QPS, slow queries) via Socket.IO |
-| ✅ **Data Validation** | Post-migration record count comparison and checksum verification |
-| 📋 **Audit Logs** | Full activity history with search, filter, and CSV export |
-| 📈 **Analytics Dashboard** | KPI cards, migration trends, system health score (0-100) |
-| 🔔 **Notifications** | Real-time alerts for migration completion, failures, and performance thresholds |
-| 🌙 **Dark/Light Mode** | Persisted theme preference |
-| 📅 **Scheduled Migrations** | Cron-based scheduled job execution |
+<br />
 
 ---
 
-## 🛠️ Tech Stack
+## 📖 Project Description
 
-### Frontend
-- **React 18** + Vite
-- **Tailwind CSS v3** (custom design system)
-- **Recharts** (interactive charts)
-- **Socket.IO Client** (real-time events)
-- **React Router v6** (SPA routing)
-- **React Hot Toast** (notifications)
-- **date-fns** (date formatting)
-- **Axios** (HTTP client)
+**DBMigrate Pro** is an enterprise-grade full-stack platform engineered to seamlessly orchestrate database migrations across different systems, combined with real-time monitoring, data validation, and an AI-powered query translation layer. 
 
-### Backend
-- **Node.js 18+** + Express.js
-- **Sequelize ORM** (MySQL system DB)
-- **Socket.IO** (real-time WebSocket)
-- **JWT** (authentication)
-- **bcryptjs** (password hashing)
-- **crypto-js** (AES-256 credential encryption)
-- **node-cron** (scheduled jobs)
-- **Winston** (logging with daily rotation)
-- **mysql2** + **pg** (database drivers)
+Designed for scalability and accuracy, the system allows database administrators and developers to safely migrate schema and records from MySQL to PostgreSQL (and vice versa) without downtime. The built-in **AI Query Translator** leverages state-of-the-art LLMs (via Groq/Llama models) to dynamically convert SQL queries into highly divergent NoSQL and graph syntax, including MongoDB MQL, Neo4j Cypher, and Elasticsearch Query DSL.
+
+This platform bridges the gap between relational integrity and modern NoSQL flexibility, featuring role-based access, comprehensive audit logging, and detailed validation pipelines.
 
 ---
 
-## 📋 Prerequisites
+## ✨ Key Features
 
-- **Node.js** 18+
-- **npm** 9+
-- **MySQL 8+** (for the system database — stores users, jobs, logs)
-- **MySQL 8+** or **PostgreSQL 14+** (target databases to migrate between)
+- **🌐 Database Connection Management**: Add, securely test, and manage SSL-supported connections to multiple databases (MySQL, PostgreSQL, Supabase).
+- **🔄 Database Migration Engine**: End-to-end table discovery, schema translation, and asynchronous batch migration with live progress monitoring and retry mechanisms.
+- **🤖 AI Query Translator**: LLM-powered engine translating MySQL into PostgreSQL, MongoDB, Neo4j, Oracle, MS SQL, Elasticsearch, and Firestore.
+- **🛡️ Data Validation Module**: Automated comparison of source and destination records post-migration to guarantee 100% data integrity.
+- **📊 Real-time Monitoring Dashboard**: Interactive visualizations of connection statuses, migration success metrics, and aggregate statistics.
+- **📋 Audit Logging System**: Granular tracking of user activity, migration executions, and connection modifications with CSV export capability.
 
 ---
 
-## 🚀 Installation
+## 🏗️ Architecture Diagram
 
-### 1. Clone the repository
-
-```bash
-git clone <your-repo-url>
-cd Project
+```ascii
+                      +-------------------+
+                      |   Frontend (React)|
+                      | - Dashboards      |
+                      | - Translators     |
+                      | - Validation UI   |
+                      +---------+---------+
+                                |
+                          [REST API]
+                                |
+                      +---------v---------+
+                      | Backend (Node.js) |
+                      | - Express Server  |
+                      | - JWT Auth        |
+                      +----+---------+----+
+                           |         |
+            +--------------+         +--------------+
+            |                                       |
+    +-------v-------+                       +-------v-------+
+    | DB Migration  |                       | AI Translator |
+    | Engine (Batch)|                       | (Groq API)    |
+    +-------+-------+                       +-------+-------+
+            |                                       |
+    +-------v-------+                       +-------v-------+
+    | Source DBs    |                       | LLM Models    |
+    | (MySQL, PG)   |                       | (Llama 3)     |
+    +-------+-------+                       +---------------+
+            |
+    +-------v-------+
+    | Dest DBs      |
+    | (PostgreSQL)  |
+    +---------------+
 ```
 
-### 2. Backend Setup
+---
 
+## 🛠️ Technology Stack
+
+| Category | Technologies |
+|---|---|
+| **Frontend** | React, TypeScript, Vite, Tailwind CSS, ShadCN UI, Lucide Icons, React Router, Framer Motion |
+| **Backend** | Node.js, Express.js, JavaScript/TypeScript, JWT, Socket.io |
+| **Database Systems** | PostgreSQL, MySQL, Supabase (Cloud PostgreSQL) |
+| **AI Layer** | Groq API SDK, Llama-3.3-70b-versatile, Prompt Engineering |
+
+---
+
+## ⚙️ System Workflows
+
+### 🔄 Database Migration Flow
+1. **Connection**: User registers and tests Source & Destination database credentials.
+2. **Discovery**: System retrieves schemas, keys, constraints, and total record counts.
+3. **Execution**: Tables are created automatically on the destination. Data is batched and streamed.
+4. **Relationship Sync**: Foreign Keys and generated sequence constraints are deferred and synced in Phase 3.
+5. **Validation**: Target row counts and schemas are automatically compared against the source.
+
+### 🤖 AI Translation Flow
+1. **Input**: User selects Source Language (e.g., MySQL) and Target Language (e.g., MongoDB MQL).
+2. **Prompt Injection**: The query and dialects are injected into a highly specific system prompt.
+3. **LLM Processing**: Groq's high-speed inference processes the translation via `llama-3.3-70b-versatile`.
+4. **Sanitization**: The response is parsed, stripped of markdown artifacts, and displayed in the UI.
+
+---
+
+## 📂 Folder Structure
+
+```text
+DBMigrate Pro/
+├── backend/
+│   ├── src/
+│   │   ├── controllers/      # Route handlers
+│   │   ├── middleware/       # Auth & error handling
+│   │   ├── models/           # DB schema models
+│   │   ├── routes/           # Express API endpoints
+│   │   ├── services/         # DB Adapter, AI Translator, Migration engine
+│   │   └── utils/            # Logger, encryption utilities
+│   ├── .env.example          # Environment vars example
+│   └── package.json
+├── frontend/
+│   ├── src/
+│   │   ├── api/              # API wrapper services
+│   │   ├── components/       # Reusable UI components
+│   │   ├── context/          # React Context (Auth)
+│   │   ├── pages/            # Application views (Dashboard, Migration, Translator)
+│   │   └── App.jsx           # Main routing
+│   ├── vite.config.js
+│   └── package.json
+└── Screenshots/              # UI Demonstration images
+```
+
+---
+
+## 🚀 Installation Guide
+
+### Prerequisites
+- **Node.js** (v18+)
+- **MySQL / PostgreSQL** installed locally or hosted credentials.
+- **Groq API Key** (for Query Translator).
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/yourusername/dbmigrate-pro.git
+cd dbmigrate-pro
+```
+
+### 2. Setup Backend
 ```bash
 cd backend
 npm install
-```
-
-Copy and configure environment variables:
-
-```bash
 cp .env.example .env
-```
-
-Edit `.env` and set your values:
-
-```env
-PORT=5000
-SYSTEM_DB_HOST=localhost
-SYSTEM_DB_PORT=3306
-SYSTEM_DB_NAME=dbmigrate_system
-SYSTEM_DB_USER=root
-SYSTEM_DB_PASSWORD=your_mysql_password
-
-JWT_SECRET=your_super_secret_jwt_key_min_32_characters
-ENCRYPTION_KEY=your_32_char_encryption_key_here!
-CORS_ORIGIN=http://localhost:5173
-```
-
-### 3. Create the System Database
-
-Run the schema SQL against your MySQL server:
-
-```bash
-mysql -u root -p < ../database/schema.sql
-```
-
-Or initialize via the built-in script (also syncs Sequelize models):
-
-```bash
-npm run db:init
-```
-
-This creates:
-- All 8 tables
-- Default Admin: `admin@demo.com` / `Admin@123`
-- Default Engineer: `engineer@demo.com` / `Eng@123`
-
-### 4. Start the Backend
-
-```bash
+# Edit .env with your local DB credentials and Groq API key
 npm run dev
 ```
 
-Backend runs at `http://localhost:5000`
-
----
-
-### 5. Frontend Setup
-
+### 3. Setup Frontend
 ```bash
 cd ../frontend
 npm install
 npm run dev
 ```
 
-Frontend runs at `http://localhost:5173`
-
 ---
 
-## 📁 Project Structure
+## 🔐 Environment Variables (.env)
 
-```
-Project/
-├── backend/
-│   ├── src/
-│   │   ├── app.js                    # Express + Socket.IO entry point
-│   │   ├── config/
-│   │   │   ├── db.js                 # Sequelize system DB connection
-│   │   │   └── encryption.js         # AES-256 encrypt/decrypt
-│   │   ├── controllers/              # Route handlers
-│   │   ├── middleware/               # Auth, RBAC, error handler
-│   │   ├── models/                   # Sequelize ORM models
-│   │   ├── routes/                   # Express routers
-│   │   ├── scripts/
-│   │   │   └── initDb.js             # DB seed script
-│   │   ├── services/
-│   │   │   ├── dbAdapter.js          # MySQL/PostgreSQL generic adapter
-│   │   │   ├── migrationService.js   # Core migration engine
-│   │   │   ├── monitoringService.js  # Real-time metrics polling
-│   │   │   ├── validationService.js  # Data integrity checks
-│   │   │   └── schedulerService.js   # node-cron scheduler
-│   │   └── utils/
-│   │       ├── logger.js             # Winston logger
-│   │       └── reportGenerator.js    # CSV export
-│   ├── .env.example
-│   └── package.json
-├── frontend/
-│   ├── src/
-│   │   ├── App.jsx                   # Router + providers
-│   │   ├── main.jsx                  # React entry point
-│   │   ├── index.css                 # Global design system
-│   │   ├── api/                      # Axios API modules
-│   │   ├── components/
-│   │   │   ├── Layout/               # Sidebar, Topbar, Layout
-│   │   │   └── common/               # StatCard, Modal, ProgressBar, StatusBadge
-│   │   ├── context/                  # AuthContext, ThemeContext
-│   │   └── pages/
-│   │       ├── Auth/                 # Login, Register
-│   │       ├── Dashboard/            # Analytics overview
-│   │       ├── Connections/          # DB connection manager
-│   │       ├── Migration/            # Migration wizard
-│   │       ├── Monitoring/           # Performance charts
-│   │       ├── Validation/           # Data validation
-│   │       ├── Logs/                 # Audit log viewer
-│   │       └── Settings/             # User settings
-│   ├── tailwind.config.js
-│   ├── vite.config.js
-│   └── package.json
-├── database/
-│   └── schema.sql                    # MySQL DDL
-├── docs/
-│   └── API.md                        # REST API reference
-└── README.md
+The `backend/.env` requires the following critical variables:
+
+```env
+# System Database (MySQL/PG - stores app data)
+SYSTEM_DB_HOST=localhost
+SYSTEM_DB_PORT=3306
+SYSTEM_DB_NAME=dbmigrate_system
+SYSTEM_DB_USER=root
+SYSTEM_DB_PASSWORD=yourpassword
+
+# Security
+JWT_SECRET=super_secret_jwt_string
+ENCRYPTION_KEY=32_character_aes_encryption_key_
+
+# Groq AI Integration
+GROQ_API_KEY=gsk_your_groq_api_key_here
 ```
 
 ---
 
+<<<<<<< HEAD
+=======
+## 📡 API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/auth/login` | Authenticate user & receive JWT |
+| `GET` | `/api/connections` | Retrieve all registered DB connections |
+| `POST` | `/api/migrations/run` | Initiate asynchronous data migration |
+| `GET` | `/api/monitoring/stats` | Fetch aggregate server and DB statistics |
+| `POST` | `/api/query/translate` | Translate query string via Groq AI |
+| `GET` | `/api/logs` | Fetch system audit logs |
+>>>>>>> 7160fd6 (Upload project to GitHub)
 
 ---
 
-## 🌐 API Overview
+## 📸 Application Screenshots
 
-See [docs/API.md](./docs/API.md) for complete documentation.
+### 1. Dashboard Overview
+![Dashboard](./Screenshots/Database_connection.png)
 
-| Method | Route | Description |
-|--------|-------|-------------|
-| POST | `/api/auth/login` | Login |
-| POST | `/api/auth/register` | Register |
-| GET | `/api/connections` | List connections |
-| POST | `/api/connections` | Add connection |
-| POST | `/api/connections/:id/test` | Test connectivity |
-| GET | `/api/connections/:id/tables` | List tables |
-| GET | `/api/migrations` | List migration jobs |
-| POST | `/api/migrations` | Start migration |
-| GET | `/api/monitoring/:connId/metrics` | Live DB metrics |
-| GET | `/api/analytics/overview` | Dashboard KPIs |
-| GET | `/api/logs` | Audit logs |
-| GET | `/api/notifications` | Notifications |
+### 2. Database Connections
+![Connections](./Screenshots/Add_database.png)
 
----
+### 3. Migration Engine
+![Migration](./Screenshots/Migration.png)
 
-## 🔌 Real-time Events (Socket.IO)
+### 4. AI Query Translator
+![Translator](./Screenshots/Translator.png)
 
-The backend emits real-time events for:
-- **Migration progress** — per-batch updates with records count and percentage
-- **Table completion** — when each table finishes migrating
-- **Job status** — pending → running → completed/failed
-- **Performance metrics** — live DB metrics every 10 seconds
+### 5. Data Validation Dashboard
+![Validation](./Screenshots/Validation.png)
+
+*(Images are stored in the `/Screenshots` directory)*
 
 ---
 
-## 🛡️ Security
+## 🚀 Future Enhancements
 
-- Passwords hashed with **bcrypt** (12 rounds)
-- DB credentials encrypted with **AES-256** before storage
-- **JWT** tokens (24h expiry)
-- **Rate limiting** — 500 requests per 15 minutes per IP
-- **Helmet.js** security headers
-- Role-based access control (Admin > Engineer > Viewer)
+- **Bi-Directional Schema Syncing**: Automatic polling to detect schema drift between linked databases.
+- **Scheduling Engine**: Cron-based scheduled migrations for recurring ETL pipelines.
+- **Additional Connectors**: Expand native support for MongoDB and Redis as migration targets.
 
 ---
 
-## 🧪 Sample Dataset
-
-To test migrations, add two database connections pointing to any MySQL or PostgreSQL databases. The migration engine will:
-1. Count all rows in source tables
-2. Read rows in configurable batches (default: 1000 rows/batch)
-3. Write to destination with `ON DUPLICATE KEY UPDATE` / `ON CONFLICT DO NOTHING`
-4. Emit real-time progress events
+## 🛡️ Security Features
+- **AES-256 Encryption**: All database passwords and sensitive credentials are encrypted at rest.
+- **JWT Authentication**: Role-based access control protecting API routes and actions.
+- **Input Sanitization**: Protection against SQL Injection during connection validations.
+- **Rate Limiting**: Integrated Express rate-limiting to prevent API abuse.
 
 ---
 
-## 📝 Logs
-
-Application logs are saved to `backend/logs/`:
-- `app-YYYY-MM-DD.log` — All logs (rotated daily, 14 days retention)
-- `error-YYYY-MM-DD.log` — Error logs only (30 days retention)
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/my-feature`
-3. Commit: `git commit -m 'Add my feature'`
-4. Push: `git push origin feature/my-feature`
-5. Open a Pull Request
+## ⚡ Performance Features
+- **Asynchronous Batch Processing**: Migrations are chunked and streamed (default 1000 rows/batch) to prevent memory overflow on large datasets.
+- **Socket.io Integration**: Real-time progress updates without heavy HTTP polling.
+- **Deferred Constraints**: Foreign keys are applied post-migration to bypass dependency deadlock.
 
 ---
 
-## 📄 License
-
-MIT License — see [LICENSE](./LICENSE) for details.
+## 🎓 Learning Outcomes
+- Developed comprehensive understanding of **ETL (Extract, Transform, Load)** pipelines and asynchronous data streaming.
+- Mastered bridging modern **LLM APIs (Groq/Llama)** with traditional full-stack web applications.
+- Implemented robust **security architectures**, focusing on encryption at rest and role-based access.
 
 ---
 
-**Built with ❤️ for database engineers and cloud data teams**
+## 📄 Resume Project Description
+
+**DBMigrate Pro | Full-Stack Database Migration & AI Query Translation Engine**
+* Architected an enterprise ETL platform utilizing React, Node.js, and Express to orchestrate secure, zero-downtime database migrations between MySQL and PostgreSQL.
+* Engineered a batched, asynchronous migration pipeline capable of streaming large datasets alongside real-time Socket.io progress tracking and post-migration schema validation.
+* Integrated the Groq SDK and Llama-3 LLM to develop a dynamic, low-latency AI Query Translator bridging relational SQL syntaxes with NoSQL graph and document querying structures.
+
+---
+
+## 🏆 Project Highlights
+- Fully automated **Phase 3 Foreign Key resolution** algorithm preventing complex relational deadlocks.
+- High-performance API integration fetching translations via **Llama-3.3-70b-versatile**.
+- Extensible, role-based, production-ready architecture designed for horizontal scalability.
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.

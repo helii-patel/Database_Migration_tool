@@ -196,10 +196,26 @@ Create and start a migration job.
   "destination_connection_id": "uuid",
   "tables": ["users", "orders", "products"],
   "migration_type": "full",
-  "scheduled_at": null
+  "scheduled_at": null,
+  "options": {
+    "create_missing_tables": true,
+    "existing_data_strategy": "fail",
+    "continue_on_error": false
+  }
 }
 ```
 **Response `201`:** Created job object. Starts immediately if `scheduled_at` is null.
+
+`existing_data_strategy` accepts:
+
+- `fail` (default): stop before changing a non-empty destination table.
+- `skip`: insert new primary-key values and skip conflicts.
+- `truncate`: delete existing destination rows before copying.
+
+Source and destination credentials are entered through the connection API and encrypted in the
+application database. They are not configured as `SOURCE_DB_URL` or `TARGET_DB_URL` environment
+variables. Environment variables are reserved for application infrastructure such as the system
+database, JWT secret, and credential-encryption key.
 
 ---
 

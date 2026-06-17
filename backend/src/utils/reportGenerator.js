@@ -17,7 +17,9 @@ const exportToCSV = async (data, filename) => {
 };
 
 const generateMigrationReport = async (jobId) => {
-  const job = await MigrationJob.findByPk(jobId, { include: [{ model: MigrationLog, as: 'logs' }] });
+  const job = await MigrationJob.findByPk(jobId, {
+    include: [{ model: MigrationLog, as: 'logs' }],
+  });
   if (!job) throw new Error('Job not found');
 
   const reportData = job.logs.map((l) => ({

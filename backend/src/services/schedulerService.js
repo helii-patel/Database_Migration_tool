@@ -6,7 +6,9 @@ const logger = require('../utils/logger');
 let io = null;
 let schedulerTask = null;
 
-const setIo = (socketIo) => { io = socketIo; };
+const setIo = (socketIo) => {
+  io = socketIo;
+};
 
 /**
  * Checks for scheduled jobs and runs them

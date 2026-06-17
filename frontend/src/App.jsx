@@ -13,6 +13,7 @@ const Connections = lazy(() => import('./pages/Connections/Connections'));
 const Migration = lazy(() => import('./pages/Migration/Migration'));
 const Monitoring = lazy(() => import('./pages/Monitoring/Monitoring'));
 const Validation = lazy(() => import('./pages/Validation/Validation'));
+const QueryTranslator = lazy(() => import('./pages/QueryTranslator/QueryTranslator'));
 const Logs = lazy(() => import('./pages/Logs/Logs'));
 const Settings = lazy(() => import('./pages/Settings/Settings'));
 
@@ -24,9 +25,18 @@ const PageLoader = () => (
         <span className="text-white font-bold">DB</span>
       </div>
       <div className="flex gap-1.5">
-        <span className="w-2 h-2 bg-primary-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-        <span className="w-2 h-2 bg-primary-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-        <span className="w-2 h-2 bg-primary-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+        <span
+          className="w-2 h-2 bg-primary-500 rounded-full animate-bounce"
+          style={{ animationDelay: '0ms' }}
+        />
+        <span
+          className="w-2 h-2 bg-primary-500 rounded-full animate-bounce"
+          style={{ animationDelay: '150ms' }}
+        />
+        <span
+          className="w-2 h-2 bg-primary-500 rounded-full animate-bounce"
+          style={{ animationDelay: '300ms' }}
+        />
       </div>
     </div>
   </div>
@@ -52,17 +62,39 @@ const AppRoutes = () => (
   <Suspense fallback={<PageLoader />}>
     <Routes>
       {/* Public routes */}
-      <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
-      <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/register"
+        element={
+          <PublicRoute>
+            <Register />
+          </PublicRoute>
+        }
+      />
 
       {/* Protected app routes */}
-      <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <Layout />
+          </ProtectedRoute>
+        }
+      >
         <Route index element={<Navigate to="/dashboard" replace />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="connections" element={<Connections />} />
         <Route path="migrations" element={<Migration />} />
         <Route path="monitoring" element={<Monitoring />} />
         <Route path="validation" element={<Validation />} />
+        <Route path="query-translator" element={<QueryTranslator />} />
         <Route path="logs" element={<Logs />} />
         <Route path="settings" element={<Settings />} />
       </Route>
@@ -74,7 +106,7 @@ const AppRoutes = () => (
 );
 
 const App = () => (
-  <BrowserRouter>
+  <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
     <ThemeProvider>
       <AuthProvider>
         <AppRoutes />

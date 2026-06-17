@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const ctrl = require('../controllers/migrationController');
+const validationCtrl = require('../controllers/validationController');
 const { authenticate } = require('../middleware/auth');
 const { roleGuard } = require('../middleware/roleGuard');
 
@@ -11,6 +12,7 @@ router.post('/', roleGuard('admin', 'engineer'), ctrl.create);
 router.post('/:id/cancel', roleGuard('admin', 'engineer'), ctrl.cancel);
 router.post('/:id/retry', roleGuard('admin', 'engineer'), ctrl.retry);
 router.get('/:id/logs', ctrl.getLogs);
-router.post('/:id/validate', ctrl.runValidation || require('../controllers/validationController').runValidation);
+router.get('/:id/validate', validationCtrl.getReport);
+router.post('/:id/validate', ctrl.runValidation || validationCtrl.runValidation);
 
 module.exports = router;

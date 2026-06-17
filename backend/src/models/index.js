@@ -22,13 +22,28 @@ User.hasMany(Notification, { foreignKey: 'user_id', as: 'notifications' });
 Notification.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 
 // Connection associations
-DatabaseConnection.hasMany(MigrationJob, { foreignKey: 'source_connection_id', as: 'sourceMigrations' });
-DatabaseConnection.hasMany(MigrationJob, { foreignKey: 'destination_connection_id', as: 'destMigrations' });
-MigrationJob.belongsTo(DatabaseConnection, { foreignKey: 'source_connection_id', as: 'sourceConnection' });
-MigrationJob.belongsTo(DatabaseConnection, { foreignKey: 'destination_connection_id', as: 'destinationConnection' });
+DatabaseConnection.hasMany(MigrationJob, {
+  foreignKey: 'source_connection_id',
+  as: 'sourceMigrations',
+});
+DatabaseConnection.hasMany(MigrationJob, {
+  foreignKey: 'destination_connection_id',
+  as: 'destMigrations',
+});
+MigrationJob.belongsTo(DatabaseConnection, {
+  foreignKey: 'source_connection_id',
+  as: 'sourceConnection',
+});
+MigrationJob.belongsTo(DatabaseConnection, {
+  foreignKey: 'destination_connection_id',
+  as: 'destinationConnection',
+});
 
 DatabaseConnection.hasMany(PerformanceSnapshot, { foreignKey: 'connection_id', as: 'snapshots' });
-PerformanceSnapshot.belongsTo(DatabaseConnection, { foreignKey: 'connection_id', as: 'connection' });
+PerformanceSnapshot.belongsTo(DatabaseConnection, {
+  foreignKey: 'connection_id',
+  as: 'connection',
+});
 
 // Migration job associations
 MigrationJob.hasMany(MigrationLog, { foreignKey: 'job_id', as: 'logs' });

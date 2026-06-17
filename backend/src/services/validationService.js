@@ -47,7 +47,10 @@ const validateMigration = async (jobId) => {
           const dstHash = JSON.stringify(dstRows.slice(0, 10));
           checksumMatch = srcHash === dstHash;
           if (!checksumMatch && status === 'passed') status = 'warning';
-        } catch (_) {}
+        } catch (err) {
+          logger.warn(`Checksum sampling failed for table ${tableName}: ${err.message}`);
+          checksumMatch = null;
+        }
 
         const report = await ValidationReport.upsert({
           job_id: jobId,
@@ -64,10 +67,18 @@ const validateMigration = async (jobId) => {
         });
 
         reports.push({
-          table_name: tableName, srcCount, dstCount, missing, extra, status, checksumMatch,
+          table_name: tableName,
+          srcCount,
+          dstCount,
+          missing,
+          extra,
+          status,
+          checksumMatch,
         });
 
-        logger.info(`Validated table ${tableName}: src=${srcCount}, dst=${dstCount}, status=${status}`);
+        logger.info(
+          `Validated table ${tableName}: src=${srcCount}, dst=${dstCount}, status=${status}`
+        );
       } catch (err) {
         logger.error(`Validation error for table ${tableName}: ${err.message}`);
         reports.push({ table_name: tableName, status: 'failed', error: err.message });

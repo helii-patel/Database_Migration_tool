@@ -1,7 +1,11 @@
 const logger = require('../utils/logger');
 
 const errorHandler = (err, req, res, next) => {
-  logger.error(`${err.name}: ${err.message}`, { stack: err.stack, url: req.url, method: req.method });
+  logger.error(`${err.name}: ${err.message}`, {
+    stack: err.stack,
+    url: req.url,
+    method: req.method,
+  });
 
   // Sequelize validation errors
   if (err.name === 'SequelizeValidationError') {

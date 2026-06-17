@@ -35,45 +35,87 @@ const Register = () => {
 
         <div className="card p-8 animate-fade-in">
           <h1 className="text-2xl font-bold text-slate-800 dark:text-white mb-1">Create account</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm mb-8">Join your team's database platform</p>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mb-8">
+            Join your team's database platform
+          </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="input-label">Username</label>
-              <input id="reg-username" type="text" className="input" placeholder="johndoe" value={form.username}
-                onChange={(e) => setForm({ ...form, username: e.target.value })} required minLength={3} />
+              <input
+                id="reg-username"
+                type="text"
+                className="input"
+                placeholder="johndoe"
+                value={form.username}
+                onChange={(e) => setForm({ ...form, username: e.target.value })}
+                required
+                minLength={3}
+              />
             </div>
             <div>
               <label className="input-label">Email address</label>
-              <input id="reg-email" type="email" className="input" placeholder="john@company.com" value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })} required />
+              <input
+                id="reg-email"
+                type="email"
+                className="input"
+                placeholder="john@company.com"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                required
+              />
             </div>
             <div>
               <label className="input-label">Password</label>
-              <input id="reg-password" type="password" className="input" placeholder="Min. 6 characters" value={form.password}
-                onChange={(e) => setForm({ ...form, password: e.target.value })} required minLength={6} />
+              <input
+                id="reg-password"
+                type="password"
+                className="input"
+                placeholder="Min. 6 characters"
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                required
+                minLength={6}
+              />
             </div>
             <div>
               <label className="input-label">Role</label>
-              <select id="reg-role" className="select" value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}>
+              <select
+                id="reg-role"
+                className="select"
+                value={form.role}
+                onChange={(e) => setForm({ ...form, role: e.target.value })}
+              >
                 <option value="viewer">Viewer (read-only)</option>
                 <option value="engineer">Database Engineer</option>
                 <option value="admin">Admin</option>
               </select>
             </div>
 
-            <button id="reg-submit" type="submit" className="btn-primary w-full justify-center py-3 mt-2" disabled={loading}>
+            <button
+              id="reg-submit"
+              type="submit"
+              className="btn-primary w-full justify-center py-3 mt-2"
+              disabled={loading}
+            >
               {loading ? (
                 <span className="flex items-center gap-2">
                   <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   Creating account...
                 </span>
-              ) : 'Create Account →'}
+              ) : (
+                'Create Account →'
+              )}
             </button>
 
             <p className="text-center text-sm text-slate-500">
               Already have an account?{' '}
-              <Link to="/login" className="text-primary-600 dark:text-primary-400 hover:underline font-medium">Sign in</Link>
+              <Link
+                to="/login"
+                className="text-primary-600 dark:text-primary-400 hover:underline font-medium"
+              >
+                Sign in
+              </Link>
             </p>
           </form>
         </div>

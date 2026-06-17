@@ -10,14 +10,20 @@ const activeMonitors = new Map(); // connectionId -> intervalId
  */
 const getMySQLMetrics = async (conn) => {
   const [statusRows] = await conn.query('SHOW GLOBAL STATUS');
-  const [variableRows] = await conn.query('SHOW GLOBAL VARIABLES WHERE Variable_name IN ("max_connections","innodb_buffer_pool_size")');
+  const [variableRows] = await conn.query(
+    'SHOW GLOBAL VARIABLES WHERE Variable_name IN ("max_connections","innodb_buffer_pool_size")'
+  );
   const [processRows] = await conn.query('SHOW PROCESSLIST');
   const [slowRows] = await conn.query('SHOW GLOBAL STATUS LIKE "Slow_queries"');
 
   const status = {};
-  statusRows.forEach((r) => { status[r.Variable_name] = r.Value; });
+  statusRows.forEach((r) => {
+    status[r.Variable_name] = r.Value;
+  });
   const variables = {};
-  variableRows.forEach((r) => { variables[r.Variable_name] = r.Value; });
+  variableRows.forEach((r) => {
+    variables[r.Variable_name] = r.Value;
+  });
 
   const totalConnections = parseInt(status['Connections'] || 0);
   const activeConnections = processRows.filter((p) => p.Command !== 'Sleep').length;
@@ -25,7 +31,8 @@ const getMySQLMetrics = async (conn) => {
   const bufferPoolSize = parseInt(variables['innodb_buffer_pool_size'] || 134217728);
   const bufferPoolPages = parseInt(status['Innodb_buffer_pool_pages_total'] || 1);
   const bufferFreePages = parseInt(status['Innodb_buffer_pool_pages_free'] || 0);
-  const bufferHitRatio = bufferPoolPages > 0 ? ((bufferPoolPages - bufferFreePages) / bufferPoolPages) * 100 : 0;
+  const bufferHitRatio =
+    bufferPoolPages > 0 ? ((bufferPoolPages - bufferFreePages) / bufferPoolPages) * 100 : 0;
 
   const questions = parseInt(status['Questions'] || 0);
   const uptime = parseInt(status['Uptime'] || 1);
@@ -62,10 +69,16 @@ const getMySQLMetrics = async (conn) => {
  */
 const getPostgresMetrics = async (client) => {
   const bgWriter = await client.query('SELECT * FROM pg_stat_bgwriter');
-  const dbStats = await client.query('SELECT * FROM pg_stat_database WHERE datname = current_database()');
-  const activity = await client.query(`SELECT count(*) as total, count(*) filter (where state='active') as active FROM pg_stat_activity WHERE datname=current_database()`);
-  const maxConn = await client.query("SHOW max_connections");
-  const slowQ = await client.query(`SELECT count(*) as slow FROM pg_stat_activity WHERE state='active' AND query_start < now() - interval '5 seconds'`);
+  const dbStats = await client.query(
+    'SELECT * FROM pg_stat_database WHERE datname = current_database()'
+  );
+  const activity = await client.query(
+    `SELECT count(*) as total, count(*) filter (where state='active') as active FROM pg_stat_activity WHERE datname=current_database()`
+  );
+  const maxConn = await client.query('SHOW max_connections');
+  const slowQ = await client.query(
+    `SELECT count(*) as slow FROM pg_stat_activity WHERE state='active' AND query_start < now() - interval '5 seconds'`
+  );
 
   const bg = bgWriter.rows[0] || {};
   const db = dbStats.rows[0] || {};
@@ -74,7 +87,7 @@ const getPostgresMetrics = async (client) => {
 
   const blksHit = parseInt(db.blks_hit || 0);
   const blksRead = parseInt(db.blks_read || 0);
-  const bufferHitRatio = (blksHit + blksRead) > 0 ? (blksHit / (blksHit + blksRead)) * 100 : 0;
+  const bufferHitRatio = blksHit + blksRead > 0 ? (blksHit / (blksHit + blksRead)) * 100 : 0;
 
   const xactTotal = parseInt(db.xact_commit || 0) + parseInt(db.xact_rollback || 0);
 
@@ -85,7 +98,7 @@ const getPostgresMetrics = async (client) => {
     memory_used_mb: Math.random() * 600 + 100,
     active_connections: parseInt(act.active || 0),
     max_connections: parseInt(maxConn.rows[0]?.max_connections || 100),
-    transactions_per_second: Math.round(xactTotal / 3600 * 10) / 10,
+    transactions_per_second: Math.round((xactTotal / 3600) * 10) / 10,
     queries_per_second: Math.round(Math.random() * 100 * 10) / 10,
     slow_queries: parseInt(slow.slow || 0),
     avg_query_time_ms: Math.random() * 50 + 1,
@@ -106,20 +119,25 @@ const captureSnapshot = async (connectionId, io) => {
   let dbConn = null;
   try {
     dbConn = await createConnection(connectionRecord);
-    const metrics = connectionRecord.db_type === 'mysql'
-      ? await getMySQLMetrics(dbConn.conn)
-      : await getPostgresMetrics(dbConn.conn);
+    const metrics =
+      connectionRecord.db_type === 'mysql'
+        ? await getMySQLMetrics(dbConn.conn)
+        : await getPostgresMetrics(dbConn.conn);
 
     const snapshot = await PerformanceSnapshot.create({ connection_id: connectionId, ...metrics });
-    if (io) io.to(`monitor_${connectionId}`).emit('metrics', { connectionId, ...snapshot.toJSON() });
+    if (io)
+      io.to(`monitor_${connectionId}`).emit('metrics', { connectionId, ...snapshot.toJSON() });
 
     // Alert if active connections > 80% of max
     if (metrics.active_connections > metrics.max_connections * 0.8) {
       await Notification.create({
-        user_id: connectionRecord.created_by, type: 'performance_alert', severity: 'warning',
+        user_id: connectionRecord.created_by,
+        type: 'performance_alert',
+        severity: 'warning',
         title: 'High Connection Usage',
         message: `Database "${connectionRecord.name}" has ${metrics.active_connections}/${metrics.max_connections} active connections (>80%).`,
-        resource_type: 'DatabaseConnection', resource_id: connectionId,
+        resource_type: 'DatabaseConnection',
+        resource_id: connectionId,
       });
     }
   } catch (err) {
