@@ -160,7 +160,6 @@ npm run dev
 
 ---
 
-<<<<<<< HEAD
 =======
 ## 📡 API Endpoints
 
@@ -172,7 +171,6 @@ npm run dev
 | `GET` | `/api/monitoring/stats` | Fetch aggregate server and DB statistics |
 | `POST` | `/api/query/translate` | Translate query string via Groq AI |
 | `GET` | `/api/logs` | Fetch system audit logs |
->>>>>>> 7160fd6 (Upload project to GitHub)
 
 ---
 
